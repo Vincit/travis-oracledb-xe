@@ -22,4 +22,4 @@ before_install:
   - bash ./accept_the_license_agreement_for_oracledb_xe_11g_and_install.sh 
 ```
 
-And you will be able to connect the database in localhost:1521 with user/pass: `travis/travis`.
+And you will be able to connect the database in `localhost:1521` with user/pass: `travis/travis` and with `SYSDBA` role user/pass: `sys/travis`.
