@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Vincit/travis-oracledb-xe.svg?branch=master)](https://travis-ci.org/Vincit/travis-oracledb-xe)
+
 # Install and Setup Oracle Database Express Edition to your Travis CI
 
 To use this installer you must accept 
