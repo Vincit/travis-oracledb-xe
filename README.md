@@ -9,22 +9,15 @@ Installer setup automatically Oracle Database Express Edition to your Travis CI 
 
 Just add the installer script to `.travis.yml`:
 
-```
+```yaml
 sudo: required
 
-matrix:
-  include:
-    - env: APT_ADDON=0 DIST=precise
-      dist: precise
-      addons:s
-        apt: false
-    - env: APT_ADDON=0 DIST=trusty
-      dist: trusty
-      addons:
-        apt: false
+env:
+  - ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe ORACLE_SID=XE
 
 before_install:
   - wget https://raw.githubusercontent.com/Vincit/travis-oracledb-xe/master/accept_the_license_agreement_for_oracledb_xe_11g_and_install.sh 
   - bash ./accept_the_license_agreement_for_oracledb_xe_11g_and_install.sh 
 ```
 
+And you will be able to connect the database in localhost:1521 with user/pass: `travis/travis`.
