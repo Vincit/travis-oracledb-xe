@@ -14,11 +14,6 @@ export ORACLE_SID=XE
 # make sure that hostname is found from hosts (or oracle installation will fail)
 ping -c1 $(hostname) || echo 127.0.0.1 $(hostname) | sudo tee -a /etc/hosts
 
-# shutdown postgres which may be using the shm
-sudo /etc/init.d/postgresql stop
-sleep 5
-sudo umount /dev/shm
-
 # Following Oracle Database Express Edition installer is from 2016-09-06
 # https://github.com/cbandy/travis-oracle/blob/master/install.sh
 #
@@ -41,9 +36,6 @@ dpkg -s bc libaio1 rpm unzip > /dev/null 2>&1 ||
 
 df -B1 /dev/shm | awk 'END { if ($1 != "shmfs" && $1 != "tmpfs" || $2 < 2147483648) exit 1 }' ||
   ( sudo rm -r /dev/shm && sudo mkdir /dev/shm && sudo mount -t tmpfs shmfs -o size=2G /dev/shm )
-
-# and re-start postgres now that shm is back online
-sudo /etc/init.d/postgresql start
 
 test -f /sbin/chkconfig ||
   ( echo '#!/bin/sh' | sudo tee /sbin/chkconfig > /dev/null && sudo chmod u+x /sbin/chkconfig )
