@@ -53,4 +53,5 @@ sudo usermod -aG dba $USER
 "$ORACLE_HOME/bin/sqlplus" -L -S / AS SYSDBA <<SQL
 CREATE USER travis IDENTIFIED BY travis;
 GRANT CONNECT, RESOURCE TO travis;
+GRANT EXECUTE ON SYS.DBMS_LOCK TO travis;
 SQL
