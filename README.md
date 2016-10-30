@@ -35,7 +35,7 @@ sudo: required
 dist: xenial
 
 env:
-  - ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe ORACLE_SID=XE OCI_LIB_DIR=/u01/app/oracle/product/11.2.0/xe/lib
+  - ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe ORACLE_SID=XE OCI_LIB_DIR=/u01/app/oracle/product/11.2.0/xe/lib LD_LIBRARY_PATH=/u01/app/oracle/product/11.2.0/xe/lib
 
 before_install:
   - wget https://raw.githubusercontent.com/Vincit/travis-oracledb-xe/master/accept_the_license_agreement_for_oracledb_xe_11g_and_install.sh
