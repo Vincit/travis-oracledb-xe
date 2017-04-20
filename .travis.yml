@@ -1,22 +1,31 @@
+language: node_js
 sudo: required
 
-matrix:
-  include:
-    - os: linux
-      dist: precise
-      sudo: required
-    - os: linux
-      dist: trusty
-      sudo: required
-    - os: linux
-      dist: xenial
-      sudo: required
-
-script: bash ./test_db.sh
-
-env:
-  - ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe ORACLE_SID=XE
+node_js:
+  - '6'
 
 before_install:
-  - wget https://raw.githubusercontent.com/Vincit/travis-oracledb-xe/master/accept_the_license_agreement_for_oracledb_xe_11g_and_install.sh
+  - wget https://raw.githubusercontent.com/elhigu/travis-oracledb-xe/try-to-not-break-postgres/accept_the_license_agreement_for_oracledb_xe_11g_and_install.sh
   - bash ./accept_the_license_agreement_for_oracledb_xe_11g_and_install.sh
+  - npm install oracledb pg
+
+before_script:
+  - psql -c 'create database test;' -U postgres
+
+script: node ./test_that_postgres_work.js
+
+notifications:
+  email: false
+
+env:
+  - CXX=g++-4.8 CC=gcc-4.8 ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe ORACLE_SID=XE OCI_LIB_DIR=/u01/app/oracle/product/11.2.0/xe/lib LD_LIBRARY_PATH=/u01/app/oracle/product/11.2.0/xe/lib
+
+addons:
+  postgresql: "9.4"
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+    - gcc-4.8
+
